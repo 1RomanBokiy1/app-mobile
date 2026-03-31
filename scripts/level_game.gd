@@ -1,4 +1,5 @@
 extends Control
+## Игровая сцена уровней: вступление (уровень 0), затем уровни 1..6 с выбором из 2 ответов и жизнями.
 
 const _UIManagerScript = preload("res://shared/ui_manager.gd")
 const _MenuUi = preload("res://scripts/menu_ui.gd")
