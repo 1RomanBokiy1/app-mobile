@@ -3,6 +3,7 @@ extends Control
 
 const _UIManagerScript = preload("res://shared/ui_manager.gd")
 const _MenuUi = preload("res://scripts/menu_ui.gd")
+const _MusicBusScript = preload("res://shared/music_bus.gd")
 
 @export_file("*.tscn") var main_menu_scene_path: String = "res://scenes/main_menu.tscn"
 @export var title_text: String = ""
@@ -15,6 +16,8 @@ func _ready() -> void:
 	var mgr := _UIManagerScript.get_instance()
 	if mgr:
 		mgr.register_game_ui(self)
+	var mb = _MusicBusScript.new()
+	mb.call("play_menu")
 	var title: Label = get_node_or_null(NodePath("MenuHeaderBar/HeaderMargin/HeaderTitle")) as Label
 	if title:
 		title.text = title_text

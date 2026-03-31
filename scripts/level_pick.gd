@@ -3,6 +3,7 @@ extends Control
 
 const _UIManagerScript = preload("res://shared/ui_manager.gd")
 const _MenuUi = preload("res://scripts/menu_ui.gd")
+const _MusicBusScript = preload("res://shared/music_bus.gd")
 
 @export_file("*.tscn") var main_menu_scene_path: String = "res://scenes/main_menu.tscn"
 @export_file("*.tscn") var level_scene_path: String = "res://scenes/level_scene.tscn"
@@ -27,6 +28,8 @@ func _ready() -> void:
 	var mgr := _UIManagerScript.get_instance()
 	if mgr:
 		mgr.register_game_ui(self)
+	var mb = _MusicBusScript.new()
+	mb.call("play_menu")
 	_lock_icon = _make_lock_icon()
 	_good_icon = _make_check_icon()
 	_bad_icon = _make_cross_icon()
@@ -67,15 +70,27 @@ func _make_check_icon() -> ImageTexture:
 	var sz := 48
 	var im := Image.create(sz, sz, false, Image.FORMAT_RGBA8)
 	im.fill(Color(0, 0, 0, 0))
-	var col := Color(0.1, 0.65, 0.35, 1)
-	# Простая галочка.
-	for x in range(sz):
-		for y in range(sz):
-			# Диагонали с допуском.
-			var dx := x - y
-			var dy := x + y
-			if abs(dx - 6) < 1 and abs(dy - (sz + 10)) < 2:
-				im.set_pixel(x, y, col)
+	var col := Color(0.1, 0.7, 0.35, 1)
+	# Понятная галочка (две толстые линии).
+	var thickness := 3
+	var pts: Array[Vector2i] = []
+	# Нисходящая часть: (12, 26) -> (20, 34)
+	for i in range(0, 12):
+		var x := 12 + i
+		var y := 26 + int(i * 0.75)
+		pts.append(Vector2i(x, y))
+	# Восходящая часть: (20, 34) -> (36, 16)
+	for i in range(0, 18):
+		var x := 20 + i
+		var y := 34 - int(i * 1.0)
+		pts.append(Vector2i(x, y))
+	for p in pts:
+		for dx in range(-thickness, thickness + 1):
+			for dy in range(-thickness, thickness + 1):
+				var px := p.x + dx
+				var py := p.y + dy
+				if px >= 0 and px < sz and py >= 0 and py < sz:
+					im.set_pixel(px, py, col)
 	return ImageTexture.create_from_image(im)
 
 

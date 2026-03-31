@@ -68,20 +68,38 @@ theme_override_constants/separation = 28
 [node name="LblSound" type="Label" parent="UiRoot/Column/RowSound" unique_id=1524985761]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.03, 0.2, 0.52, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 0.9)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 52
-text = "Звук"
+text = "Громкость"
 vertical_alignment = 1
 
-[node name="ToggleSound" type="CheckButton" parent="UiRoot/Column/RowSound" unique_id=1866471022]
+[node name="SliderSound" type="HSlider" parent="UiRoot/Column/RowSound" unique_id=1866471022]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 96)
+custom_minimum_size = Vector2(200, 72)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="LblVolumeValue" type="Label" parent="UiRoot/Column/RowSound" unique_id=1866471023]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.03, 0.2, 0.52, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.9)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 44
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="RowVibration" type="HBoxContainer" parent="UiRoot/Column" unique_id=759246056]
 layout_mode = 2

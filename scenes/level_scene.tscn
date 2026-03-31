@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://b07650crltc3o" path="res://assets/sprites/icon_settings_gear.png" id="5_gear"]
 [ext_resource type="Texture2D" uid="uid://dhascx1554ess" path="res://assets/sprites/menu_star.svg" id="6_star"]
 [ext_resource type="Script" uid="uid://cd0udspiymx5x" path="res://scripts/narrator_mouth.gd" id="7_nar"]
+[ext_resource type="Texture2D" uid="uid://sdn48lf56g4x" path="res://assets/sprites/bg_level_night.png" id="8_night"]
+[ext_resource type="Texture2D" uid="uid://dq78xekl3wfsl" path="res://assets/sprites/narrator_1.png" id="9_narr1"]
+[ext_resource type="Texture2D" uid="uid://eo4tq1uvmy58" path="res://assets/sprites/narrator_2.png" id="10_narr2"]
+[ext_resource type="Texture2D" uid="uid://clkmasvensg6f" path="res://assets/sprites/narrator_3.png" id="11_narr3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
 texture = ExtResource("3_btn")
@@ -14,6 +18,22 @@ texture_margin_left = 14.0
 texture_margin_top = 14.0
 texture_margin_right = 14.0
 texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_narrator"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+bg_color = Color(0.05, 0.08, 0.14, 0.78)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.02, 0.04, 0.1, 0.9)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
 content_margin_left = 18.0
@@ -44,6 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("8_night")
 expand_mode = 1
 stretch_mode = 5
 
@@ -139,60 +160,62 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 12
 
-[node name="PortraitSlot" type="Control" parent="UiRoot/MainColumn/UpperRow" unique_id=1785017574]
-custom_minimum_size = Vector2(420, 520)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="PortraitBg" type="ColorRect" parent="UiRoot/MainColumn/UpperRow/PortraitSlot" unique_id=1428739252]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.42, 0.56, 0.64, 1)
-
-[node name="PortraitNarrator" type="TextureRect" parent="UiRoot/MainColumn/UpperRow/PortraitSlot" unique_id=2067207173]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
-script = ExtResource("7_nar")
-
-[node name="NarratorCol" type="VBoxContainer" parent="UiRoot/MainColumn/UpperRow" unique_id=1222334625]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_constants/separation = 10
-
-[node name="NameLabel" type="Label" parent="UiRoot/MainColumn/UpperRow/NarratorCol" unique_id=688297079]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
-theme_override_colors/font_outline_color = Color(0.05, 0.15, 0.35, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 44
-text = "Вицемэрио"
-
-[node name="DialogueText" type="RichTextLabel" parent="UiRoot/MainColumn/UpperRow/NarratorCol" unique_id=171366075]
-unique_name_in_owner = true
+[node name="NarratorPanel" type="PanelContainer" parent="UiRoot/MainColumn/UpperRow" unique_id=1972542516]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_colors/default_color = Color(0.94, 0.97, 1, 1)
-theme_override_font_sizes/normal_font_size = 38
-scroll_active = false
+theme_override_styles/panel = SubResource("StyleBoxFlat_narrator")
+
+[node name="NarrInner" type="VBoxContainer" parent="UiRoot/MainColumn/UpperRow/NarratorPanel" unique_id=951590541]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="PortraitSlot" type="Control" parent="UiRoot/MainColumn/UpperRow/NarratorPanel/NarrInner" unique_id=1785017574]
+custom_minimum_size = Vector2(420, 520)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="PortraitNarrator" type="TextureRect" parent="UiRoot/MainColumn/UpperRow/NarratorPanel/NarrInner/PortraitSlot" unique_id=2067207173]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_narr1")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("7_nar")
+frame_textures = Array[Texture2D]([ExtResource("9_narr1"), ExtResource("10_narr2"), ExtResource("11_narr3")])
+
+[node name="NameLabel" type="Label" parent="UiRoot/MainColumn/UpperRow/NarratorPanel/NarrInner" unique_id=688297079]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.06, 0.2, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 44
+text = "Вицемэрио"
+horizontal_alignment = 1
+
+[node name="DialogueText" type="RichTextLabel" parent="UiRoot/MainColumn/UpperRow/NarratorPanel/NarrInner" unique_id=171366075]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 36
 autowrap_mode = 2
 
 [node name="ChoicesCol" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=426986639]
@@ -280,9 +303,9 @@ stretch_mode = 5
 [node name="HintLabel" type="Label" parent="UiRoot/MainColumn" unique_id=552979521]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
-theme_override_colors/font_outline_color = Color(0.05, 0.15, 0.35, 1)
-theme_override_constants/outline_size = 4
+theme_override_colors/font_color = Color(1, 1, 0.92, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.08, 0.22, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 34
 text = "Нажмите для продолжения"
 horizontal_alignment = 1

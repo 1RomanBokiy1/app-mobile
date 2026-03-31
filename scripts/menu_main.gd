@@ -3,6 +3,7 @@ extends Control
 
 const _UIManagerScript = preload("res://shared/ui_manager.gd")
 const _MenuUi = preload("res://scripts/menu_ui.gd")
+const _MusicBusScript = preload("res://shared/music_bus.gd")
 
 @export_file("*.tscn") var play_scene_path: String = "res://scenes/level_scene.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scenes/settings.tscn"
@@ -20,6 +21,8 @@ func _ready() -> void:
 	var mgr := _UIManagerScript.get_instance()
 	if mgr:
 		mgr.register_game_ui(self)
+	var mb = _MusicBusScript.new()
+	mb.call("play_menu")
 	_MenuUi.bind_press_feedback(_btn_play)
 	_MenuUi.bind_press_feedback(_btn_level)
 	_MenuUi.bind_press_feedback(_btn_settings)
@@ -44,7 +47,7 @@ func _on_play_pressed() -> void:
 		return
 	if _cloud_layer != null and _cloud_layer.has_method("scatter_and_finish"):
 		await _cloud_layer.scatter_and_finish(1.15)
-	get_tree().change_scene_to_file(play_scene_path)
+	await mgr.transition_to_scene(play_scene_path)
 
 
 func _on_level_pressed() -> void:
@@ -53,7 +56,7 @@ func _on_level_pressed() -> void:
 		return
 	if level_select_scene_path.is_empty():
 		return
-	get_tree().change_scene_to_file(level_select_scene_path)
+	await mgr.transition_to_scene(level_select_scene_path)
 
 
 func _on_settings_pressed() -> void:
@@ -65,7 +68,7 @@ func _on_settings_pressed() -> void:
 	var nav := get_tree().root.get_node_or_null("NavigationState")
 	if nav:
 		nav.call("set_return_scene", "res://scenes/main_menu.tscn")
-	get_tree().change_scene_to_file(settings_scene_path)
+	await mgr.transition_to_scene(settings_scene_path)
 
 
 func _on_about_pressed() -> void:
@@ -74,4 +77,4 @@ func _on_about_pressed() -> void:
 		return
 	if about_scene_path.is_empty():
 		return
-	get_tree().change_scene_to_file(about_scene_path)
+	await mgr.transition_to_scene(about_scene_path)

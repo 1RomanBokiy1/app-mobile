@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjegr4uf668on"
-path="res://.godot/imported/bg_city.png-e457e6f3881514176f308244f7c724cf.ctex"
+uid="uid://sdn48lf56g4x"
+path="res://.godot/imported/bg_level_night.png-a4a124128ebe696b1cc70ae2aefda603.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/bg_city.png"
-dest_files=["res://.godot/imported/bg_city.png-e457e6f3881514176f308244f7c724cf.ctex"]
+source_file="res://assets/sprites/bg_level_night.png"
+dest_files=["res://.godot/imported/bg_level_night.png-a4a124128ebe696b1cc70ae2aefda603.ctex"]
 
 [params]
 

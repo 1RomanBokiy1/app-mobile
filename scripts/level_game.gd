@@ -3,9 +3,12 @@ extends Control
 
 const _UIManagerScript = preload("res://shared/ui_manager.gd")
 const _MenuUi = preload("res://scripts/menu_ui.gd")
+const _RunStateScript = preload("res://shared/run_state.gd")
+const _MusicBusScript = preload("res://shared/music_bus.gd")
 
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/level_select.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scenes/settings.tscn"
+@export_file("*.tscn") var final_scene_path: String = "res://scenes/final_scene.tscn"
 @export_file("*.txt") var levels_text_path: String = "res://data/levels.txt"
 
 const _LEVEL_SCENE_PATH: String = "res://scenes/level_scene.tscn"
@@ -24,8 +27,6 @@ const _LEVEL_SCENE_PATH: String = "res://scenes/level_scene.tscn"
 
 @onready var _choice_a: Button = %ChoiceA
 @onready var _choice_b: Button = %ChoiceB
-@onready var _choice_a_img: TextureRect = %ChoiceAImg
-@onready var _choice_b_img: TextureRect = %ChoiceBImg
 @onready var _choice_a_txt: Label = %ChoiceATxt
 @onready var _choice_b_txt: Label = %ChoiceBTxt
 
@@ -66,7 +67,35 @@ func _ready() -> void:
 
 	_load_levels_text()
 	_reset_run_from_selection()
+	var mb = _MusicBusScript.new()
+	mb.call("play_level")
+	_prepare_intro_visuals()
+	await _play_intro_sequence()
 	_show_intro()
+
+
+func _prepare_intro_visuals() -> void:
+	_set_choices_visible(false)
+	_choice_a.disabled = true
+	_choice_b.disabled = true
+	# Жизни всегда видны (интро в levels.txt не упоминает «сердца» — раньше они не появлялись).
+	_update_lives_ui()
+	_heart1.modulate = Color(1, 1, 1, 1)
+	_heart2.modulate = Color(1, 1, 1, 1)
+	_heart3.modulate = Color(1, 1, 1, 1)
+	# Текст и подсказка сразу читаемы; печать не должна быть с alpha=0.
+	_name_label.modulate = Color(1, 1, 1, 1)
+	_dialogue_label.modulate = Color(1, 1, 1, 1)
+	_hint_label.modulate = Color(1, 1, 1, 1)
+	_portrait.modulate = Color(1, 1, 1, 0.0)
+
+
+func _play_intro_sequence() -> void:
+	var tw := get_tree().create_tween()
+	tw.set_trans(Tween.TRANS_QUAD)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property(_portrait, "modulate", Color(1, 1, 1, 1), 0.28)
+	await tw.finished
 
 
 func _exit_tree() -> void:
@@ -98,13 +127,19 @@ func _on_tap() -> void:
 				_finish_line_typing()
 			else:
 				_start_level(_current_level)
+		Phase.CHOICE:
+			if _typing:
+				_finish_line_typing()
 		Phase.RESULT:
 			if _typing:
 				_finish_line_typing()
 			else:
 				_continue_after_result()
 		Phase.GAME_OVER:
-			_go_level_select()
+			if _typing:
+				_finish_line_typing()
+			else:
+				_go_level_select()
 		Phase.FINISHED:
 			_go_level_select()
 		_:
@@ -112,12 +147,18 @@ func _on_tap() -> void:
 
 
 func _reset_run_from_selection() -> void:
-	_lives = 3
-	_update_lives_ui()
 	var lp := get_tree().root.get_node_or_null("LevelProgress")
+	var run := get_tree().root.get_node_or_null("RunState")
 	if lp:
 		_current_level = int(lp.call("take_pending_level_index", 0)) + 1
 	_current_level = clampi(_current_level, 1, 6)
+	if run != null and run is _RunStateScript and (run as _RunStateScript).consume_restore():
+		_lives = int((run as _RunStateScript).lives)
+	else:
+		_lives = 3
+		if run != null and run is _RunStateScript:
+			(run as _RunStateScript).start_new_run(_current_level - 1, _lives)
+	_update_lives_ui()
 	_choices_unlocked = false
 
 
@@ -148,6 +189,13 @@ func _start_level(level_idx: int) -> void:
 
 	_choice_a.disabled = true
 	_choice_b.disabled = true
+
+	_update_lives_ui()
+	_heart1.modulate = Color(1, 1, 1, 1)
+	_heart2.modulate = Color(1, 1, 1, 1)
+	_heart3.modulate = Color(1, 1, 1, 1)
+	_name_label.modulate = Color(1, 1, 1, 1)
+	_dialogue_label.modulate = Color(1, 1, 1, 1)
 
 	_start_typewriter(prompt)
 
@@ -205,9 +253,14 @@ func _continue_after_result() -> void:
 		_start_level(_pending_next_level)
 	else:
 		_phase = Phase.FINISHED
-		_hint_label.visible = true
-		_hint_label.text = "Нажмите для продолжения"
-		_start_typewriter("Ты прошёл все уровни! Финал добавим позже.")
+		_hint_label.visible = false
+		_set_choices_visible(false)
+		# Финальная сцена.
+		var mgr := _UIManagerScript.get_instance()
+		if mgr != null and not mgr.is_paused() and not final_scene_path.is_empty():
+			await mgr.transition_to_scene(final_scene_path)
+		else:
+			_go_level_select()
 
 
 func _mark_level_completed(level_idx: int) -> void:
@@ -259,6 +312,9 @@ func _update_lives_ui() -> void:
 func _go_level_select() -> void:
 	if level_select_scene_path.is_empty():
 		return
+	var run := get_tree().root.get_node_or_null("RunState")
+	if run != null and run is _RunStateScript:
+		(run as _RunStateScript).clear_run()
 	var lp := get_tree().root.get_node_or_null("LevelProgress")
 	if lp:
 		lp.call("begin_play_level", _current_level - 1)
@@ -278,6 +334,9 @@ func _on_settings_pressed() -> void:
 		return
 	if settings_scene_path.is_empty():
 		return
+	var run := get_tree().root.get_node_or_null("RunState")
+	if run != null and run is _RunStateScript:
+		(run as _RunStateScript).mark_return_from_settings(_current_level - 1, _lives)
 	var nav := get_tree().root.get_node_or_null("NavigationState")
 	if nav:
 		nav.call("set_return_scene", _LEVEL_SCENE_PATH)

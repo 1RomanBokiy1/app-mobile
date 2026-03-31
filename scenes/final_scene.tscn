@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://d2h7g4g7r5m2y"]
+
+[ext_resource type="Script" uid="uid://c4le0veo55m8m" path="res://scripts/final.gd" id="1_final"]
+[ext_resource type="Theme" uid="uid://cm45uqg0dacx2" path="res://themes/aurora_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://sdn48lf56g4x" path="res://assets/sprites/bg_level_night.png" id="3_night"]
+[ext_resource type="Texture2D" uid="uid://dm1qkbkjg7ore" path="res://assets/sprites/btn_frame_lavender.png" id="4_btn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 36.0
+content_margin_top = 32.0
+content_margin_right = 36.0
+content_margin_bottom = 32.0
+bg_color = Color(0.94, 0.97, 1, 0.96)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
+texture = ExtResource("4_btn")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[node name="FinalScene" type="Control" unique_id=1868241472]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_final")
+
+[node name="BgScene" type="TextureRect" parent="." unique_id=220225267]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_night")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="UiLayer" type="CanvasLayer" parent="." unique_id=1988635194]
+layer = 1100
+
+[node name="UiFull" type="Control" parent="UiLayer" unique_id=1345474756]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 543.0
+offset_top = 911.0
+offset_right = 543.0
+offset_bottom = 911.0
+
+[node name="UiRoot" type="MarginContainer" parent="UiLayer/UiFull" unique_id=1316376703]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 24
+
+[node name="TopLayout" type="VBoxContainer" parent="UiLayer/UiFull/UiRoot" unique_id=55250665]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="RowPanel" type="HBoxContainer" parent="UiLayer/UiFull/UiRoot/TopLayout" unique_id=49159914]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="SpacerLeft" type="Control" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel" unique_id=1223807284]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FinalPanel" type="PanelContainer" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel" unique_id=66794653]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="PanelVBox" type="VBoxContainer" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel" unique_id=820148913]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="FinalTitle" type="Label" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox" unique_id=110698625]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.05, 0.18, 0.42, 1)
+theme_override_colors/font_outline_color = Color(0.98, 0.99, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 84
+text = "Поздравляем!"
+horizontal_alignment = 1
+
+[node name="FinalText" type="RichTextLabel" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox" unique_id=368840576]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.05, 0.18, 0.42, 1)
+theme_override_font_sizes/normal_font_size = 52
+text = "Текст финала"
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox" unique_id=914929653]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="SpacerBtnL" type="Control" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox/BtnRow" unique_id=1622327648]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BtnHome" type="Button" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox/BtnRow" unique_id=1543817701]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(520, 176)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.95)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+text = "Домой"
+
+[node name="SpacerBtnR" type="Control" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel/FinalPanel/PanelVBox/BtnRow" unique_id=150335213]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpacerRight" type="Control" parent="UiLayer/UiFull/UiRoot/TopLayout/RowPanel" unique_id=1921044555]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomSpacer" type="Control" parent="UiLayer/UiFull/UiRoot/TopLayout" unique_id=1017071914]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
