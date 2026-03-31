@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cenmkbiq8rj3a"]
+
+[ext_resource type="Texture2D" uid="uid://dgjtuvbo5v2sb" path="res://assets/sprites/cloud_pink_1.png" id="1_c1"]
+[ext_resource type="Texture2D" uid="uid://d21opufxp7v16" path="res://assets/sprites/cloud_pink_2.png" id="2_c2"]
+[ext_resource type="Script" uid="uid://xwdx58cmj6gb" path="res://scripts/cloud_sprites_layer.gd" id="3_layer"]
+
+[node name="PixelCloudsBg" type="Control" unique_id=295234680]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Sky" type="ColorRect" parent="." unique_id=1419053885]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.4392157, 0.69411767, 0.98039216, 0.78)
+
+[node name="CloudLayer" type="Control" parent="." unique_id=879011737]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_layer")
+cloud_textures = Array[Texture2D]([ExtResource("1_c1"), ExtResource("2_c2")])
+cloud_texture_paths = PackedStringArray()
+cloud_count = 105

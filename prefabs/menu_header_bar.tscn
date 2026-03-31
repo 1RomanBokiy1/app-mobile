@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://shw185skpj3a"]
+
+[sub_resource type="Gradient" id="Gradient_header_bg"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.88, 0.94, 0.99, 1, 0.88, 0.94, 0.99, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_header_bg"]
+gradient = SubResource("Gradient_header_bg")
+width = 4
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[node name="MenuHeaderBar" type="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.32
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HeaderBg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_header_bg")
+expand_mode = 1
+
+[node name="HeaderMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 14
+
+[node name="HeaderTitle" type="Label" parent="HeaderMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.06, 0.32, 0.38, 1)
+theme_override_font_sizes/font_size = 72
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,291 @@
+[gd_scene format=3 uid="uid://b0rtuxdrkmy8l"]
+
+[ext_resource type="Script" uid="uid://btstrrnymcspd" path="res://scripts/level_game.gd" id="1_level"]
+[ext_resource type="Theme" uid="uid://cm45uqg0dacx2" path="res://themes/aurora_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://dm1qkbkjg7ore" path="res://assets/sprites/btn_frame_lavender.png" id="3_btn"]
+[ext_resource type="Texture2D" uid="uid://0i6h0kppxmml" path="res://assets/sprites/bg_city.jpg" id="3_ojpky"]
+[ext_resource type="Texture2D" uid="uid://c5gkhqkxqifom" path="res://assets/sprites/ui_heart_life.png" id="4_heart"]
+[ext_resource type="Texture2D" uid="uid://b07650crltc3o" path="res://assets/sprites/icon_settings_gear.png" id="5_gear"]
+[ext_resource type="Texture2D" uid="uid://dhascx1554ess" path="res://assets/sprites/menu_star.svg" id="6_star"]
+[ext_resource type="Script" uid="uid://cd0udspiymx5x" path="res://scripts/narrator_mouth.gd" id="7_nar"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
+texture = ExtResource("3_btn")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+bg_color = Color(0.94, 0.97, 1, 0.92)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="LevelScene" type="Control" unique_id=452113649]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_level")
+
+[node name="BgCity" type="TextureRect" parent="." unique_id=184620197]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_ojpky")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="UiRoot" type="MarginContainer" parent="." unique_id=1970287855]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="MainColumn" type="VBoxContainer" parent="UiRoot" unique_id=1530724181]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 18
+
+[node name="TopBar" type="HBoxContainer" parent="UiRoot/MainColumn" unique_id=2086956492]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="BtnBack" type="Button" parent="UiRoot/MainColumn/TopBar" unique_id=491718797]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 156)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+text = "«"
+
+[node name="SpacerTopLeft" type="Control" parent="UiRoot/MainColumn/TopBar" unique_id=123740883]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="LivesRow" type="HBoxContainer" parent="UiRoot/MainColumn/TopBar" unique_id=1991993537]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Heart1" type="TextureRect" parent="UiRoot/MainColumn/TopBar/LivesRow" unique_id=1195968954]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("4_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="UiRoot/MainColumn/TopBar/LivesRow" unique_id=1565250630]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("4_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="UiRoot/MainColumn/TopBar/LivesRow" unique_id=1390952698]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("4_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SpacerTop" type="Control" parent="UiRoot/MainColumn/TopBar" unique_id=290598715]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnSettings" type="Button" parent="UiRoot/MainColumn/TopBar" unique_id=1525248613]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 156)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+icon = ExtResource("5_gear")
+expand_icon = true
+
+[node name="UpperRow" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=1889067031]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 18
+
+[node name="PortraitSlot" type="Control" parent="UiRoot/MainColumn/UpperRow" unique_id=1194619346]
+custom_minimum_size = Vector2(420, 520)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PortraitBg" type="ColorRect" parent="UiRoot/MainColumn/UpperRow/PortraitSlot" unique_id=1837625686]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.42, 0.56, 0.64, 1)
+
+[node name="PortraitNarrator" type="TextureRect" parent="UiRoot/MainColumn/UpperRow/PortraitSlot" unique_id=1173266216]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("7_nar")
+
+[node name="NarratorCol" type="VBoxContainer" parent="UiRoot/MainColumn/UpperRow" unique_id=33291420]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="UiRoot/MainColumn/UpperRow/NarratorCol" unique_id=565982334]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.15, 0.35, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 44
+text = "Вицемэрио"
+
+[node name="DialogueText" type="RichTextLabel" parent="UiRoot/MainColumn/UpperRow/NarratorCol" unique_id=1957671892]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.94, 0.97, 1, 1)
+theme_override_font_sizes/normal_font_size = 40
+scroll_active = false
+autowrap_mode = 2
+
+[node name="ChoicesCol" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=769203538]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="ChoiceA" type="Button" parent="UiRoot/MainColumn/ChoicesCol" unique_id=1338653800]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_card")
+theme_override_styles/hover = SubResource("StyleBoxFlat_card")
+theme_override_styles/focus = SubResource("StyleBoxFlat_card")
+
+[node name="ChoiceABox" type="VBoxContainer" parent="UiRoot/MainColumn/ChoicesCol/ChoiceA" unique_id=291461699]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="ChoiceATxt" type="Label" parent="UiRoot/MainColumn/ChoicesCol/ChoiceA/ChoiceABox" unique_id=484093629]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.05, 0.18, 0.42, 1)
+theme_override_font_sizes/font_size = 40
+text = "Вариант 1"
+autowrap_mode = 2
+
+[node name="ChoiceAImg" type="TextureRect" parent="UiRoot/MainColumn/ChoicesCol/ChoiceA/ChoiceABox" unique_id=1638129203]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ChoiceB" type="Button" parent="UiRoot/MainColumn/ChoicesCol" unique_id=1571507352]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_card")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_card")
+theme_override_styles/hover = SubResource("StyleBoxFlat_card")
+theme_override_styles/focus = SubResource("StyleBoxFlat_card")
+
+[node name="ChoiceBBox" type="VBoxContainer" parent="UiRoot/MainColumn/ChoicesCol/ChoiceB" unique_id=1972034957]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="ChoiceBTxt" type="Label" parent="UiRoot/MainColumn/ChoicesCol/ChoiceB/ChoiceBBox" unique_id=917060520]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.05, 0.18, 0.42, 1)
+theme_override_font_sizes/font_size = 40
+text = "Вариант 2"
+autowrap_mode = 2
+
+[node name="ChoiceBImg" type="TextureRect" parent="UiRoot/MainColumn/ChoicesCol/ChoiceB/ChoiceBBox" unique_id=50476634]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HintLabel" type="Label" parent="UiRoot/MainColumn" unique_id=1410286018]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.15, 0.35, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 34
+text = "Нажмите для продолжения"
+horizontal_alignment = 1

@@ -1,0 +1,281 @@
+[gd_scene format=3 uid="uid://gn4fhn1ron1y"]
+
+[ext_resource type="Script" uid="uid://c5y6w5oudm340" path="res://scripts/menu_main.gd" id="1_menu"]
+[ext_resource type="Theme" uid="uid://cm45uqg0dacx2" path="res://themes/aurora_theme.tres" id="4_theme"]
+[ext_resource type="Texture2D" uid="uid://b07650crltc3o" path="res://assets/sprites/icon_settings_gear.png" id="5_gear"]
+[ext_resource type="Texture2D" uid="uid://8r5schsdu0e0" path="res://assets/sprites/icon_about_info.png" id="6_info"]
+[ext_resource type="PackedScene" uid="uid://cenmkbiq8rj3a" path="res://prefabs/pixel_clouds_bg.tscn" id="7_clouds"]
+[ext_resource type="Texture2D" uid="uid://dm1qkbkjg7ore" path="res://assets/sprites/btn_frame_lavender.png" id="8_btn_frame"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_play"]
+texture = ExtResource("8_btn_frame")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icon"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.12, 0.38, 0.62, 0.94)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icon_p"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.06, 0.18, 0.38, 0.98)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Gradient" id="Gradient_header_bg"]
+colors = PackedColorArray(0.88, 0.94, 0.99, 1, 0.88, 0.94, 0.99, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_header_bg"]
+gradient = SubResource("Gradient_header_bg")
+width = 4
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[node name="MainMenu" type="Control" unique_id=1575839698]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_theme")
+script = ExtResource("1_menu")
+
+[node name="CloudBackground" parent="." unique_id=1495606863 instance=ExtResource("7_clouds")]
+layout_mode = 1
+
+[node name="TealTint" type="ColorRect" parent="." unique_id=1326002483]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.4, 0.44, 0.42)
+
+[node name="UiRoot" type="MarginContainer" parent="." unique_id=1259523006]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.32
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="MainColumn" type="VBoxContainer" parent="UiRoot" unique_id=453043378]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="GameTitleVBox" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=148425600]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="GameTitleLine1" type="Label" parent="UiRoot/MainColumn/GameTitleVBox" unique_id=691197240]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.2, 0.35, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 150
+text = "D-BUS"
+horizontal_alignment = 1
+
+[node name="GameTitleLine2" type="Label" parent="UiRoot/MainColumn/GameTitleVBox" unique_id=337195670]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.2, 0.35, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 150
+text = "CITY"
+horizontal_alignment = 1
+
+[node name="CenterBlock" type="CenterContainer" parent="UiRoot/MainColumn" unique_id=1071112631]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterContent" type="VBoxContainer" parent="UiRoot/MainColumn/CenterBlock" unique_id=192589021]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="BtnPlay" type="Button" parent="UiRoot/MainColumn/CenterBlock/CenterContent" unique_id=348893274]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 170)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.03, 0.16, 0.52, 1)
+theme_override_colors/font_outline_color = Color(0.98, 0.99, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxTexture_play")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_play")
+theme_override_styles/hover = SubResource("StyleBoxTexture_play")
+theme_override_styles/focus = SubResource("StyleBoxTexture_play")
+text = "ИГРАТЬ"
+
+[node name="BtnLevel" type="Button" parent="UiRoot/MainColumn/CenterBlock/CenterContent" unique_id=481120733]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 170)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.03, 0.16, 0.52, 1)
+theme_override_colors/font_outline_color = Color(0.98, 0.99, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 58
+theme_override_styles/normal = SubResource("StyleBoxTexture_play")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_play")
+theme_override_styles/hover = SubResource("StyleBoxTexture_play")
+theme_override_styles/focus = SubResource("StyleBoxTexture_play")
+text = "Уровень"
+
+[node name="IconRow" type="HBoxContainer" parent="UiRoot/MainColumn/CenterBlock/CenterContent" unique_id=189967464]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 52
+alignment = 1
+
+[node name="BtnSettings" type="Button" parent="UiRoot/MainColumn/CenterBlock/CenterContent/IconRow" unique_id=1521344005]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_icon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon")
+icon = ExtResource("5_gear")
+expand_icon = true
+
+[node name="BtnAbout" type="Button" parent="UiRoot/MainColumn/CenterBlock/CenterContent/IconRow" unique_id=2052816865]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_icon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon")
+icon = ExtResource("6_info")
+expand_icon = true
+
+[node name="Footer" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=1055003359]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="FooterOsLabel" type="Label" parent="UiRoot/MainColumn/Footer" unique_id=226081192]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.02, 0.2, 0.5, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.92)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 38
+text = "ОС АВРОРА"
+horizontal_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="UiRoot/MainColumn/Footer" unique_id=324179762]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.04, 0.22, 0.46, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.88)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "Версия 1.0"
+horizontal_alignment = 1
+
+[node name="HeaderPanel" type="Control" parent="." unique_id=1777077503]
+z_index = 5
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.32
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HeaderBg" type="TextureRect" parent="HeaderPanel" unique_id=416365352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_header_bg")
+expand_mode = 1
+
+[node name="HeaderMargin" type="MarginContainer" parent="HeaderPanel" unique_id=1686620381]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HeaderVBox" type="VBoxContainer" parent="HeaderPanel/HeaderMargin" unique_id=485404403]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="LogoHBox" type="HBoxContainer" parent="HeaderPanel/HeaderMargin/HeaderVBox" unique_id=1384852082]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="LabelO" type="Label" parent="HeaderPanel/HeaderMargin/HeaderVBox/LogoHBox" unique_id=1579918099]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.72, 0.42, 1)
+theme_override_font_sizes/font_size = 150
+text = "О"
+horizontal_alignment = 1
+
+[node name="LabelM" type="Label" parent="HeaderPanel/HeaderMargin/HeaderVBox/LogoHBox" unique_id=952856899]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.36, 0.42, 1)
+theme_override_font_sizes/font_size = 150
+text = "М"
+horizontal_alignment = 1
+
+[node name="LabelP" type="Label" parent="HeaderPanel/HeaderMargin/HeaderVBox/LogoHBox" unique_id=3028174]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.36, 0.42, 1)
+theme_override_font_sizes/font_size = 150
+text = "П"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="HeaderPanel/HeaderMargin/HeaderVBox" unique_id=1778027977]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.06, 0.32, 0.38, 1)
+theme_override_font_sizes/font_size = 70
+text = "Открытая Мобильная Платформа"
+horizontal_alignment = 1
+autowrap_mode = 2

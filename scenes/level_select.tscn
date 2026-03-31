@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cfda1xmfekak0"]
+
+[ext_resource type="Script" uid="uid://co7mhk7l71wcs" path="res://scripts/level_pick.gd" id="1_pick"]
+[ext_resource type="Theme" uid="uid://cm45uqg0dacx2" path="res://themes/aurora_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://cenmkbiq8rj3a" path="res://prefabs/pixel_clouds_bg.tscn" id="3_clouds"]
+[ext_resource type="PackedScene" path="res://prefabs/menu_header_bar.tscn" id="4_header"]
+[ext_resource type="Texture2D" uid="uid://dm1qkbkjg7ore" path="res://assets/sprites/btn_frame_lavender.png" id="5_btn_frame"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
+texture = ExtResource("5_btn_frame")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[node name="LevelSelect" type="Control" unique_id=948758065]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_pick")
+
+[node name="CloudBackground" parent="." unique_id=425411280 instance=ExtResource("3_clouds")]
+layout_mode = 1
+
+[node name="TealTint" type="ColorRect" parent="." unique_id=1889467316]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.4, 0.44, 0.42)
+
+[node name="MenuHeaderBar" parent="." unique_id=987089024 instance=ExtResource("4_header")]
+z_index = 5
+
+[node name="UiRoot" type="MarginContainer" parent="." unique_id=1478282145]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.32
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="Column" type="VBoxContainer" parent="UiRoot" unique_id=174879555]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ScrollLevels" type="ScrollContainer" parent="UiRoot/Column" unique_id=705990162]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListMargin" type="MarginContainer" parent="UiRoot/Column/ScrollLevels" unique_id=328968244]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="LevelList" type="VBoxContainer" parent="UiRoot/Column/ScrollLevels/ListMargin" unique_id=1222842821]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="BtnBack" type="Button" parent="UiRoot/Column" unique_id=457675001]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.95)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+text = "НАЗАД"
