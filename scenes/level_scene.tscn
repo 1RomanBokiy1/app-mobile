@@ -70,8 +70,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_night")
-expand_mode = 1
-stretch_mode = 4
 
 [node name="UiRoot" type="MarginContainer" parent="." unique_id=387739418]
 layout_mode = 1
