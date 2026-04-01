@@ -23,7 +23,8 @@ func play_level_music() -> void:
 
 
 func _play_kind(kind: String, path: String) -> void:
-	if _current_kind == kind and _player.playing:
+	# Не перезапускаем музыку при переходах между сценами.
+	if _player != null and _player.playing:
 		return
 	if path.is_empty() or not ResourceLoader.exists(path):
 		return

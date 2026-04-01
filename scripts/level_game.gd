@@ -113,11 +113,27 @@ func _gui_input(event: InputEvent) -> void:
 	if mgr != null and mgr.is_paused():
 		return
 	if event is InputEventScreenTouch and event.pressed:
+		var e_touch := event as InputEventScreenTouch
+		if _is_over_interactive_ui(e_touch.position):
+			return
 		accept_event()
 		_on_tap()
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var e_mouse := event as InputEventMouseButton
+		if _is_over_interactive_ui(e_mouse.position):
+			return
 		accept_event()
 		_on_tap()
+
+
+func _is_over_interactive_ui(pos: Vector2) -> bool:
+	var buttons: Array[Button] = [_choice_a, _choice_b, _btn_back, _btn_settings]
+	for b in buttons:
+		if b == null or not b.visible:
+			continue
+		if b.get_global_rect().has_point(pos):
+			return true
+	return false
 
 
 func _on_tap() -> void:
