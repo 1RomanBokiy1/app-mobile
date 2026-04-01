@@ -10,7 +10,7 @@ content_margin_left = 36.0
 content_margin_top = 32.0
 content_margin_right = 36.0
 content_margin_bottom = 32.0
-bg_color = Color(0.94, 0.97, 1, 0.96)
+bg_color = Color(0.05, 0.08, 0.14, 0.82)
 corner_radius_top_left = 28
 corner_radius_top_right = 28
 corner_radius_bottom_right = 28
@@ -43,7 +43,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_night")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 2
 
 [node name="UiLayer" type="CanvasLayer" parent="." unique_id=1988635194]
 layer = 1100

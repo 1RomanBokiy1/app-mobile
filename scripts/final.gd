@@ -87,4 +87,3 @@ func _on_home_pressed() -> void:
 		await mgr.transition_to_scene(main_menu_scene_path)
 	else:
 		get_tree().change_scene_to_file(main_menu_scene_path)
-

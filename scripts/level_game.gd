@@ -9,7 +9,7 @@ const _MusicBusScript = preload("res://shared/music_bus.gd")
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/level_select.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scenes/settings.tscn"
 @export_file("*.tscn") var final_scene_path: String = "res://scenes/final_scene.tscn"
-@export_file("*.txt") var levels_text_path: String = "res://data/levels.txt"
+@export_file("*.txt") var levels_text_path: String = "res://levels.txt"
 
 const _LEVEL_SCENE_PATH: String = "res://scenes/level_scene.tscn"
 
