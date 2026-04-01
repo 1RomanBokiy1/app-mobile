@@ -417,9 +417,14 @@ func _load_levels_text() -> void:
 	_levels.clear()
 	_intro_text = "Добро пожаловать!"
 	if levels_text_path.is_empty():
+		push_error("levels_text_path is empty. Set it to res://levels.txt")
+		return
+	if not FileAccess.file_exists(levels_text_path):
+		push_error("Levels file not found in export: %s" % levels_text_path)
 		return
 	var raw := FileAccess.get_file_as_string(levels_text_path)
 	if raw.is_empty():
+		push_error("Levels file is empty or failed to read: %s" % levels_text_path)
 		return
 	var lines := raw.split("\n", false)
 
