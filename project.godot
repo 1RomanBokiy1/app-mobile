@@ -27,6 +27,7 @@ LevelProgress="*res://shared/level_progress.gd"
 NavigationState="*res://shared/navigation_state.gd"
 RunState="*res://shared/run_state.gd"
 MusicManager="*res://shared/music_manager.gd"
+HallOfFame="*res://shared/hall_of_fame.gd"
 
 [display]
 

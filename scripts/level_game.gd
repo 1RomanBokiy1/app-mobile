@@ -37,6 +37,7 @@ var _levels: Dictionary = {} # int -> Dictionary
 var _intro_text: String = ""
 var _current_level: int = 1
 var _lives: int = 3
+var _correct_answers: int = 0
 var _typing: bool = false
 var _line_plain: String = ""
 var _type_timer: Timer
@@ -170,10 +171,12 @@ func _reset_run_from_selection() -> void:
 	_current_level = clampi(_current_level, 1, 6)
 	if run != null and run is _RunStateScript and (run as _RunStateScript).consume_restore():
 		_lives = int((run as _RunStateScript).lives)
+		_correct_answers = int((run as _RunStateScript).correct_answers)
 	else:
 		_lives = 3
+		_correct_answers = 0
 		if run != null and run is _RunStateScript:
-			(run as _RunStateScript).start_new_run(_current_level - 1, _lives)
+			(run as _RunStateScript).start_new_run(_current_level - 1, _lives, _correct_answers)
 	_update_lives_ui()
 	_choices_unlocked = false
 
@@ -237,6 +240,8 @@ func _on_choice_pressed(choice_idx: int) -> void:
 	if not correct:
 		_lives = maxi(0, _lives - 1)
 		_update_lives_ui()
+	else:
+		_correct_answers += 1
 
 	_choice_a.disabled = true
 	_choice_b.disabled = true
@@ -259,10 +264,15 @@ func _on_choice_pressed(choice_idx: int) -> void:
 
 func _continue_after_result() -> void:
 	if _lives <= 0:
-		_phase = Phase.GAME_OVER
-		_hint_label.visible = true
-		_hint_label.text = "Нажмите для продолжения"
-		_start_typewriter("Ты потерял все жизни. Пока что это проигрыш (финал добавим позже).")
+		_phase = Phase.FINISHED
+		_hint_label.visible = false
+		_set_choices_visible(false)
+		_store_hall_of_fame_result()
+		var mgr_game_over := _UIManagerScript.get_instance()
+		if mgr_game_over != null and not mgr_game_over.is_paused() and not final_scene_path.is_empty():
+			await mgr_game_over.transition_to_scene(final_scene_path)
+		else:
+			_go_level_select()
 		return
 
 	if _pending_next_level <= 6:
@@ -271,6 +281,7 @@ func _continue_after_result() -> void:
 		_phase = Phase.FINISHED
 		_hint_label.visible = false
 		_set_choices_visible(false)
+		_store_hall_of_fame_result()
 		# Финальная сцена.
 		var mgr := _UIManagerScript.get_instance()
 		if mgr != null and not mgr.is_paused() and not final_scene_path.is_empty():
@@ -352,7 +363,7 @@ func _on_settings_pressed() -> void:
 		return
 	var run := get_tree().root.get_node_or_null("RunState")
 	if run != null and run is _RunStateScript:
-		(run as _RunStateScript).mark_return_from_settings(_current_level - 1, _lives)
+		(run as _RunStateScript).mark_return_from_settings(_current_level - 1, _lives, _correct_answers)
 	var nav := get_tree().root.get_node_or_null("NavigationState")
 	if nav:
 		nav.call("set_return_scene", _LEVEL_SCENE_PATH)
@@ -526,3 +537,9 @@ func _strip_quotes(s: String) -> String:
 	out = out.trim_prefix("“").trim_suffix("”")
 	out = out.trim_prefix("\"").trim_suffix("\"")
 	return out
+
+
+func _store_hall_of_fame_result() -> void:
+	var hall := get_tree().root.get_node_or_null("HallOfFame")
+	if hall != null and hall.has_method("set_pending_correct_answers"):
+		hall.call("set_pending_correct_answers", _correct_answers)
