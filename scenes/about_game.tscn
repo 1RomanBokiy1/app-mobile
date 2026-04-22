@@ -13,6 +13,22 @@ texture_margin_top = 14.0
 texture_margin_right = 14.0
 texture_margin_bottom = 14.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_body_panel"]
+content_margin_left = 30.0
+content_margin_top = 28.0
+content_margin_right = 30.0
+content_margin_bottom = 28.0
+bg_color = Color(0.9, 0.95, 1, 0.44)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1, 0.31, 0.5, 0.42)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [node name="AboutGame" type="Control" unique_id=2046918266]
 layout_mode = 3
 anchors_preset = 15
@@ -22,8 +38,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_back")
-title_text = "Об игре"
-body_text = "Квест на мобильной платформе. Здесь будет описание."
+title_text = "ОБ ИГРЕ"
+body_text = "Разработчики\nБокий Роман Юрьевич\n\nКорпоративная почта\nInfo@omp.ru"
 
 [node name="CloudBackground" parent="." unique_id=2064664069 instance=ExtResource("3_clouds")]
 layout_mode = 1
@@ -46,7 +62,7 @@ z_index = 5
 z_index = 2
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.32
+anchor_top = 0.28
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -62,29 +78,35 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 28
 
-[node name="BodyLabel" type="Label" parent="UiRoot/Column" unique_id=1022369536]
+[node name="BodyPanel" type="PanelContainer" parent="UiRoot/Column" unique_id=184500011]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.03, 0.2, 0.5, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 0.88)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 40
-text = "Квест на мобильной платформе. Здесь будет описание."
+theme_override_styles/panel = SubResource("StyleBoxFlat_body_panel")
+
+[node name="BodyLabel" type="Label" parent="UiRoot/Column/BodyPanel" unique_id=1022369536]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.08, 0.2, 0.34, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.52)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 56
+text = "Разработчики\nБокий Роман Юрьевич\n\nКорпоративная почта\nInfo@omp.ru"
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="BtnBack" type="Button" parent="UiRoot/Column" unique_id=200100022]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(0, 138)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 0.95)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 62
 theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
 theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
-text = "Назад"
+text = "НАЗАД"

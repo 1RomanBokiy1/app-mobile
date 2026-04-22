@@ -21,7 +21,15 @@ func _ready() -> void:
 	var title: Label = get_node_or_null(NodePath("MenuHeaderBar/HeaderMargin/HeaderTitle")) as Label
 	if title:
 		title.text = title_text
-	var body: Label = get_node_or_null(NodePath("UiRoot/Column/BodyLabel")) as Label
+		if title_text == "ОБ ИГРЕ":
+			title.add_theme_font_size_override("font_size", 84)
+	var header_margin := get_node_or_null(NodePath("MenuHeaderBar/HeaderMargin")) as MarginContainer
+	if header_margin:
+		header_margin.add_theme_constant_override("margin_top", 8)
+		header_margin.add_theme_constant_override("margin_bottom", 8)
+	var body: Label = get_node_or_null(NodePath("UiRoot/Column/BodyPanel/BodyLabel")) as Label
+	if body == null:
+		body = get_node_or_null(NodePath("UiRoot/Column/BodyLabel")) as Label
 	if body:
 		body.text = body_text
 		body.visible = not body_text.strip_edges().is_empty()

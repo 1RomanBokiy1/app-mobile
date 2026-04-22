@@ -83,7 +83,9 @@ func _show_entry_screen() -> void:
 func _focus_name_input() -> void:
 	if _name_input == null:
 		return
+	_name_input.virtual_keyboard_enabled = true
 	_name_input.grab_focus()
+	DisplayServer.virtual_keyboard_show(_name_input.text, _name_input.get_global_rect())
 
 
 func _show_hall_screen() -> void:

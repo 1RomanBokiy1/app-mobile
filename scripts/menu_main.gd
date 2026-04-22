@@ -8,13 +8,15 @@ const _MusicBusScript = preload("res://shared/music_bus.gd")
 @export_file("*.tscn") var play_scene_path: String = "res://scenes/level_scene.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scenes/settings.tscn"
 @export_file("*.tscn") var about_scene_path: String = "res://scenes/about_game.tscn"
-@export_file("*.tscn") var level_select_scene_path: String = "res://scenes/level_select.tscn"
+@export_file("*.tscn") var level_select_scene_path: String = "res://scenes/hall_of_fame.tscn"
 
 @onready var _btn_play: Button = %BtnPlay
 @onready var _btn_level: Button = %BtnLevel
 @onready var _btn_settings: Button = %BtnSettings
 @onready var _btn_about: Button = %BtnAbout
 @onready var _cloud_layer: Node = $CloudBackground/CloudLayer
+
+var _is_starting_game: bool = false
 
 
 func _ready() -> void:
@@ -40,11 +42,14 @@ func _exit_tree() -> void:
 
 
 func _on_play_pressed() -> void:
+	if _is_starting_game:
+		return
 	var mgr := _UIManagerScript.get_instance()
 	if mgr == null or mgr.is_paused():
 		return
 	if play_scene_path.is_empty():
 		return
+	_is_starting_game = true
 	if _cloud_layer != null and _cloud_layer.has_method("scatter_and_finish"):
 		await _cloud_layer.scatter_and_finish(1.15)
 	await mgr.transition_to_scene(play_scene_path)

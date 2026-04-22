@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="AppMobile"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/bg_color=Color(0.08511493, 0.12983021, 0.2737921, 1)
 config/icon="uid://cx4ecank02msv"
 
 [autoload]

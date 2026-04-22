@@ -13,6 +13,22 @@ texture_margin_top = 14.0
 texture_margin_right = 14.0
 texture_margin_bottom = 14.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_settings_panel"]
+content_margin_left = 30.0
+content_margin_top = 28.0
+content_margin_right = 30.0
+content_margin_bottom = 28.0
+bg_color = Color(0.9, 0.95, 1, 0.44)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1, 0.31, 0.5, 0.42)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [node name="Settings" type="Control" unique_id=1384726218]
 layout_mode = 3
 anchors_preset = 15
@@ -44,7 +60,7 @@ z_index = 5
 z_index = 2
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.32
+anchor_top = 0.28
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -60,12 +76,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 28
 
-[node name="RowSound" type="HBoxContainer" parent="UiRoot/Column" unique_id=1966080582]
+[node name="SettingsPanel" type="PanelContainer" parent="UiRoot/Column" unique_id=884220111]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_settings_panel")
+
+[node name="SettingsVBox" type="VBoxContainer" parent="UiRoot/Column/SettingsPanel" unique_id=884220112]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 28
+
+[node name="RowSound" type="HBoxContainer" parent="UiRoot/Column/SettingsPanel/SettingsVBox" unique_id=1966080582]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 28
 
-[node name="LblSound" type="Label" parent="UiRoot/Column/RowSound" unique_id=1524985761]
+[node name="LblSound" type="Label" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowSound" unique_id=1524985761]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -77,7 +105,7 @@ theme_override_font_sizes/font_size = 52
 text = "Громкость"
 vertical_alignment = 1
 
-[node name="SliderSound" type="HSlider" parent="UiRoot/Column/RowSound" unique_id=1866471022]
+[node name="SliderSound" type="HSlider" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowSound" unique_id=1866471022]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 72)
 layout_mode = 2
@@ -88,7 +116,7 @@ max_value = 100.0
 step = 1.0
 value = 100.0
 
-[node name="LblVolumeValue" type="Label" parent="UiRoot/Column/RowSound" unique_id=1866471023]
+[node name="LblVolumeValue" type="Label" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowSound" unique_id=1866471023]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
@@ -101,12 +129,12 @@ text = "100%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="RowVibration" type="HBoxContainer" parent="UiRoot/Column" unique_id=759246056]
+[node name="RowVibration" type="HBoxContainer" parent="UiRoot/Column/SettingsPanel/SettingsVBox" unique_id=759246056]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 28
 
-[node name="LblVibration" type="Label" parent="UiRoot/Column/RowVibration" unique_id=785809806]
+[node name="LblVibration" type="Label" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowVibration" unique_id=785809806]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -118,18 +146,18 @@ theme_override_font_sizes/font_size = 52
 text = "Вибрация"
 vertical_alignment = 1
 
-[node name="ToggleVibration" type="CheckButton" parent="UiRoot/Column/RowVibration" unique_id=2112561272]
+[node name="ToggleVibration" type="CheckButton" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowVibration" unique_id=2112561272]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
 
-[node name="RowLanguage" type="HBoxContainer" parent="UiRoot/Column" unique_id=1315687706]
+[node name="RowLanguage" type="HBoxContainer" parent="UiRoot/Column/SettingsPanel/SettingsVBox" unique_id=1315687706]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 28
 
-[node name="LblLanguage" type="Label" parent="UiRoot/Column/RowLanguage" unique_id=1672260990]
+[node name="LblLanguage" type="Label" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowLanguage" unique_id=1672260990]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -141,7 +169,7 @@ theme_override_font_sizes/font_size = 52
 text = "Язык"
 vertical_alignment = 1
 
-[node name="BtnLanguage" type="Button" parent="UiRoot/Column/RowLanguage" unique_id=310489300]
+[node name="BtnLanguage" type="Button" parent="UiRoot/Column/SettingsPanel/SettingsVBox/RowLanguage" unique_id=310489300]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 100)
 layout_mode = 2
@@ -154,19 +182,19 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
 theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
 text = "ENG"
 
-[node name="Spacer" type="Control" parent="UiRoot/Column" unique_id=399842186]
+[node name="Spacer" type="Control" parent="UiRoot/Column/SettingsPanel/SettingsVBox" unique_id=399842186]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="BtnBack" type="Button" parent="UiRoot/Column" unique_id=326089157]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(0, 138)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 0.95)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 62
 theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_btn")

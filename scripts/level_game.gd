@@ -6,7 +6,7 @@ const _MenuUi = preload("res://scripts/menu_ui.gd")
 const _RunStateScript = preload("res://shared/run_state.gd")
 const _MusicBusScript = preload("res://shared/music_bus.gd")
 
-@export_file("*.tscn") var level_select_scene_path: String = "res://scenes/level_select.tscn"
+@export_file("*.tscn") var level_select_scene_path: String = "res://scenes/main_menu.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scenes/settings.tscn"
 @export_file("*.tscn") var final_scene_path: String = "res://scenes/final_scene.tscn"
 @export_file("*.txt") var levels_text_path: String = "res://levels.txt"
@@ -44,6 +44,8 @@ var _type_timer: Timer
 var _pending_result_text: String = ""
 var _pending_next_level: int = -1
 var _choices_unlocked: bool = false
+var _restore_after_settings: bool = false
+var _restored_scene_state: Dictionary = {}
 
 
 func _ready() -> void:
@@ -71,8 +73,11 @@ func _ready() -> void:
 	var mb = _MusicBusScript.new()
 	mb.call("play_level")
 	_prepare_intro_visuals()
-	await _play_intro_sequence()
-	_show_intro()
+	if _restore_after_settings:
+		_restore_scene_state()
+	else:
+		await _play_intro_sequence()
+		_show_intro()
 
 
 func _prepare_intro_visuals() -> void:
@@ -166,19 +171,60 @@ func _on_tap() -> void:
 func _reset_run_from_selection() -> void:
 	var lp := get_tree().root.get_node_or_null("LevelProgress")
 	var run := get_tree().root.get_node_or_null("RunState")
-	if lp:
-		_current_level = int(lp.call("take_pending_level_index", 0)) + 1
-	_current_level = clampi(_current_level, 1, 6)
+	_restore_after_settings = false
+	_restored_scene_state.clear()
 	if run != null and run is _RunStateScript and (run as _RunStateScript).consume_restore():
+		_current_level = int((run as _RunStateScript).current_level_index) + 1
 		_lives = int((run as _RunStateScript).lives)
 		_correct_answers = int((run as _RunStateScript).correct_answers)
+		_restored_scene_state = (run as _RunStateScript).take_level_scene_state()
+		_restore_after_settings = true
 	else:
+		if lp:
+			_current_level = int(lp.call("take_pending_level_index", 0)) + 1
+		_current_level = clampi(_current_level, 1, 6)
 		_lives = 3
 		_correct_answers = 0
 		if run != null and run is _RunStateScript:
 			(run as _RunStateScript).start_new_run(_current_level - 1, _lives, _correct_answers)
+	_current_level = clampi(_current_level, 1, 6)
 	_update_lives_ui()
 	_choices_unlocked = false
+
+
+func _restore_scene_state() -> void:
+	_portrait.modulate = Color(1, 1, 1, 1)
+	if _restored_scene_state.is_empty():
+		_start_level(_current_level)
+		return
+	_phase = int(_restored_scene_state.get("phase", Phase.CHOICE))
+	_current_level = clampi(int(_restored_scene_state.get("current_level", _current_level)), 1, 6)
+	_lives = clampi(int(_restored_scene_state.get("lives", _lives)), 0, 3)
+	_correct_answers = maxi(0, int(_restored_scene_state.get("correct_answers", _correct_answers)))
+	_pending_result_text = str(_restored_scene_state.get("pending_result_text", _pending_result_text))
+	_pending_next_level = int(_restored_scene_state.get("pending_next_level", _pending_next_level))
+	_choices_unlocked = bool(_restored_scene_state.get("choices_unlocked", _choices_unlocked))
+	_name_label.text = str(_restored_scene_state.get("name_text", "Вицемэрио"))
+	_hint_label.visible = bool(_restored_scene_state.get("hint_visible", _hint_label.visible))
+	_hint_label.text = str(_restored_scene_state.get("hint_text", _hint_label.text))
+	_dialogue_label.text = str(_restored_scene_state.get("dialogue_text", ""))
+	_dialogue_label.visible_characters = int(_restored_scene_state.get("visible_characters", -1))
+	_line_plain = str(_restored_scene_state.get("line_plain", _dialogue_label.text))
+	_typing = bool(_restored_scene_state.get("typing", false))
+	_choice_a_txt.text = str(_restored_scene_state.get("choice_a_text", _choice_a_txt.text))
+	_choice_b_txt.text = str(_restored_scene_state.get("choice_b_text", _choice_b_txt.text))
+	_choice_a.visible = bool(_restored_scene_state.get("choice_a_visible", _choice_a.visible))
+	_choice_b.visible = bool(_restored_scene_state.get("choice_b_visible", _choice_b.visible))
+	_choice_a.disabled = bool(_restored_scene_state.get("choice_a_disabled", _choice_a.disabled))
+	_choice_b.disabled = bool(_restored_scene_state.get("choice_b_disabled", _choice_b.disabled))
+	_update_lives_ui()
+	if _typing:
+		_type_timer.wait_time = typewriter_char_delay
+		_type_timer.start()
+		_narrator_speak()
+	else:
+		_type_timer.stop()
+		_narrator_idle()
 
 
 func _show_intro() -> void:
@@ -342,9 +388,6 @@ func _go_level_select() -> void:
 	var run := get_tree().root.get_node_or_null("RunState")
 	if run != null and run is _RunStateScript:
 		(run as _RunStateScript).clear_run()
-	var lp := get_tree().root.get_node_or_null("LevelProgress")
-	if lp:
-		lp.call("begin_play_level", _current_level - 1)
 	get_tree().change_scene_to_file(level_select_scene_path)
 
 
@@ -364,6 +407,28 @@ func _on_settings_pressed() -> void:
 	var run := get_tree().root.get_node_or_null("RunState")
 	if run != null and run is _RunStateScript:
 		(run as _RunStateScript).mark_return_from_settings(_current_level - 1, _lives, _correct_answers)
+		(run as _RunStateScript).set_level_scene_state({
+			"phase": _phase,
+			"current_level": _current_level,
+			"lives": _lives,
+			"correct_answers": _correct_answers,
+			"pending_result_text": _pending_result_text,
+			"pending_next_level": _pending_next_level,
+			"choices_unlocked": _choices_unlocked,
+			"name_text": _name_label.text,
+			"hint_visible": _hint_label.visible,
+			"hint_text": _hint_label.text,
+			"dialogue_text": _dialogue_label.text,
+			"visible_characters": _dialogue_label.visible_characters,
+			"line_plain": _line_plain,
+			"typing": _typing,
+			"choice_a_text": _choice_a_txt.text,
+			"choice_b_text": _choice_b_txt.text,
+			"choice_a_visible": _choice_a.visible,
+			"choice_b_visible": _choice_b.visible,
+			"choice_a_disabled": _choice_a.disabled,
+			"choice_b_disabled": _choice_b.disabled
+		})
 	var nav := get_tree().root.get_node_or_null("NavigationState")
 	if nav:
 		nav.call("set_return_scene", _LEVEL_SCENE_PATH)

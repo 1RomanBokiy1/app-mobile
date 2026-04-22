@@ -1,0 +1,194 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/hall_of_fame_screen.gd" id="1_hof"]
+[ext_resource type="Theme" uid="uid://cm45uqg0dacx2" path="res://themes/aurora_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://cenmkbiq8rj3a" path="res://prefabs/pixel_clouds_bg.tscn" id="3_clouds"]
+[ext_resource type="Texture2D" uid="uid://dm1qkbkjg7ore" path="res://assets/sprites/btn_frame_lavender.png" id="5_btn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 26.0
+content_margin_top = 26.0
+content_margin_right = 26.0
+content_margin_bottom = 26.0
+bg_color = Color(0.03, 0.06, 0.16, 0.72)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.32, 0.41, 0.6, 0.82)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_row"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.18, 0.36, 0.66)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.72, 0.96, 0.5)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
+texture = ExtResource("5_btn")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[node name="HallOfFame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_hof")
+
+[node name="CloudBackground" parent="." instance=ExtResource("3_clouds")]
+layout_mode = 1
+
+[node name="TealTint" type="ColorRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.4, 0.44, 0.42)
+
+[node name="UiRoot" type="MarginContainer" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 32
+
+[node name="MainVBox" type="VBoxContainer" parent="UiRoot"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+alignment = 0
+
+[node name="HallTitle" type="Label" parent="UiRoot/MainVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.98, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.05, 0.16, 0.96)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 92
+text = "ЗАЛ СЛАВЫ"
+horizontal_alignment = 1
+
+[node name="HallPanel" type="PanelContainer" parent="UiRoot/MainVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="HallVBox" type="VBoxContainer" parent="UiRoot/MainVBox/HallPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="ListHeader" type="HBoxContainer" parent="UiRoot/MainVBox/HallPanel/HallVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="HeaderRank" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ListHeader"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 0)
+theme_override_font_sizes/font_size = 46
+text = "Топ"
+horizontal_alignment = 1
+
+[node name="HeaderName" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ListHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 46
+text = "Имя"
+
+[node name="HeaderScore" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ListHeader"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 0)
+theme_override_font_sizes/font_size = 46
+text = "Ответы"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UiRoot/MainVBox/HallPanel/HallVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="EntriesRoot" type="VBoxContainer" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="EntryTemplate" type="PanelContainer" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer/EntriesRoot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_row")
+
+[node name="EntryRow" type="HBoxContainer" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer/EntriesRoot/EntryTemplate"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RankValue" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer/EntriesRoot/EntryTemplate/EntryRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 0)
+theme_override_font_sizes/font_size = 42
+text = "#1"
+horizontal_alignment = 1
+
+[node name="NameValue" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer/EntriesRoot/EntryTemplate/EntryRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 42
+text = "Игрок"
+
+[node name="ScoreValue" type="Label" parent="UiRoot/MainVBox/HallPanel/HallVBox/ScrollContainer/EntriesRoot/EntryTemplate/EntryRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(260, 0)
+theme_override_font_sizes/font_size = 42
+text = "0/6"
+horizontal_alignment = 1
+
+[node name="BtnBack" type="Button" parent="UiRoot/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 152)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 0.95)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+text = "НАЗАД"

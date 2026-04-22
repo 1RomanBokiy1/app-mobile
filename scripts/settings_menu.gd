@@ -35,6 +35,11 @@ func _ready() -> void:
 	_MenuUi.bind_press_feedback(_btn_lang)
 	_MenuUi.bind_press_feedback(_btn_back)
 	_refresh_texts()
+	_title.add_theme_font_size_override("font_size", 80)
+	var header_margin := get_node_or_null(NodePath("MenuHeaderBar/HeaderMargin")) as MarginContainer
+	if header_margin:
+		header_margin.add_theme_constant_override("margin_top", 8)
+		header_margin.add_theme_constant_override("margin_bottom", 8)
 
 
 func _exit_tree() -> void:

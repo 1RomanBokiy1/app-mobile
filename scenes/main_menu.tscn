@@ -122,7 +122,7 @@ size_flags_vertical = 3
 
 [node name="CenterContent" type="VBoxContainer" parent="UiRoot/MainColumn/CenterBlock" unique_id=344404716]
 layout_mode = 2
-theme_override_constants/separation = 36
+theme_override_constants/separation = 24
 
 [node name="BtnPlay" type="Button" parent="UiRoot/MainColumn/CenterBlock/CenterContent" unique_id=2105108179]
 unique_name_in_owner = true
@@ -152,7 +152,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_play")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_play")
 theme_override_styles/hover = SubResource("StyleBoxTexture_play")
 theme_override_styles/focus = SubResource("StyleBoxTexture_play")
-text = "Уровень"
+text = "ЗАЛ СЛАВЫ"
 
 [node name="IconRow" type="HBoxContainer" parent="UiRoot/MainColumn/CenterBlock/CenterContent" unique_id=247667025]
 layout_mode = 2
