@@ -20,6 +20,7 @@ const _MusicBusScript = preload("res://shared/music_bus.gd")
 
 var _is_saved: bool = false
 var _last_score: int = 0
+const _KEYBOARD_RETRY_DELAYS := [0.0, 0.08, 0.2, 0.4]
 const _TOTAL_LEVELS: int = 6
 const _TOP_1_COLOR := Color(1.0, 0.9, 0.45, 1.0)
 const _TOP_2_COLOR := Color(0.8, 0.88, 1.0, 1.0)
@@ -49,6 +50,7 @@ func _ready() -> void:
 	_btn_save.pressed.connect(_on_save_pressed)
 	_btn_home.pressed.connect(_on_home_pressed)
 	_name_input.text_submitted.connect(_on_name_submitted)
+	_name_input.focus_entered.connect(_on_name_input_focus_entered)
 
 	_last_score = _get_run_correct_answers()
 	_result_text.text = "Ваш результат: %d правильных ответов" % _last_score
@@ -77,20 +79,38 @@ func _show_entry_screen() -> void:
 	_entry_layout.visible = true
 	_panel_hall.visible = false
 	_play_fireworks_intro()
-	call_deferred("_focus_name_input")
+	call_deferred("_focus_name_input_with_retries")
 
 
-func _focus_name_input() -> void:
+func _focus_name_input_with_retries() -> void:
 	if _name_input == null:
 		return
-	_name_input.virtual_keyboard_enabled = true
-	_name_input.grab_focus()
-	DisplayServer.virtual_keyboard_show(_name_input.text, _name_input.get_global_rect())
+	for delay_s in _KEYBOARD_RETRY_DELAYS:
+		if delay_s > 0.0:
+			await get_tree().create_timer(delay_s).timeout
+		if not _entry_layout.visible or _panel_hall.visible:
+			return
+		_name_input.virtual_keyboard_enabled = true
+		_name_input.editable = true
+		_name_input.grab_focus()
+		_show_virtual_keyboard()
+
+
+func _on_name_input_focus_entered() -> void:
+	if not _entry_layout.visible or _panel_hall.visible:
+		return
+	_show_virtual_keyboard()
+
+
+func _show_virtual_keyboard() -> void:
+	var kb_rect := Rect2i(_name_input.global_position, _name_input.size)
+	DisplayServer.virtual_keyboard_show(_name_input.text, kb_rect)
 
 
 func _show_hall_screen() -> void:
 	_entry_layout.visible = false
 	_panel_hall.visible = true
+	DisplayServer.virtual_keyboard_hide()
 	_rebuild_hall_list()
 
 
@@ -168,6 +188,7 @@ func _on_home_pressed() -> void:
 		return
 	if main_menu_scene_path.is_empty():
 		return
+	DisplayServer.virtual_keyboard_hide()
 	var hall := get_node_or_null("/root/HallOfFame")
 	if hall != null and hall.has_method("clear_pending_correct_answers"):
 		hall.call("clear_pending_correct_answers")
