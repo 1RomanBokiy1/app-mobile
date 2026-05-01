@@ -4,7 +4,7 @@ extends Control
 @export var cloud_texture: Texture2D
 @export var cloud_textures: Array[Texture2D] = []
 @export var cloud_texture_paths: PackedStringArray = []
-@export_range(24, 260, 1) var cloud_count: int = 105
+@export_range(24, 420, 1) var cloud_count: int = 180
 @export_range(0.22, 1.8, 0.05) var min_scale: float = 0.42
 @export_range(0.22, 1.8, 0.05) var max_scale: float = 1.05
 @export var drift_speed: float = 26.0
@@ -75,8 +75,9 @@ func _rebuild_clouds() -> void:
 	var cells: int = cols * rows
 	var n_sparse: int = int(ceil(float(cells) * 0.5)) + 14
 	var n_target: int = mini(cloud_count, n_sparse)
-	n_target = maxi(n_target, mini(cloud_count, 24))
-	n_target = mini(n_target, int(ceil(float(cells) * 1.25)) + 40)
+	n_target = maxi(n_target, mini(cloud_count, 48))
+	# Для экрана меню после "Играть" нужен более плотный разлёт.
+	n_target = mini(n_target, int(ceil(float(cells) * 2.2)) + 120)
 	for i in range(n_target):
 		var tex := _pick_texture()
 		if tex == null:

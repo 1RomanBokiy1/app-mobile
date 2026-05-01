@@ -15,6 +15,9 @@ const _MusicBusScript = preload("res://shared/music_bus.gd")
 @onready var _btn_settings: Button = %BtnSettings
 @onready var _btn_about: Button = %BtnAbout
 @onready var _cloud_layer: Node = $CloudBackground/CloudLayer
+@onready var _bg_menu: TextureRect = $BgMenu
+
+const _MENU_BG_PATH: String = "res://assets/sprites/bg_menu_2.jpg"
 
 var _is_starting_game: bool = false
 
@@ -23,6 +26,7 @@ func _ready() -> void:
 	var mgr := _UIManagerScript.get_instance()
 	if mgr:
 		mgr.register_game_ui(self)
+	_apply_menu_background()
 	var mb = _MusicBusScript.new()
 	mb.call("play_menu")
 	_MenuUi.bind_press_feedback(_btn_play)
@@ -33,6 +37,31 @@ func _ready() -> void:
 	_btn_level.pressed.connect(_on_level_pressed)
 	_btn_settings.pressed.connect(_on_settings_pressed)
 	_btn_about.pressed.connect(_on_about_pressed)
+
+
+func _apply_menu_background() -> void:
+	if _bg_menu == null:
+		return
+	var tex := _load_first_existing_texture([
+		_MENU_BG_PATH,
+		_MENU_BG_PATH.replace(".jpg", ".png"),
+		_MENU_BG_PATH.replace(".png", ".jpg"),
+	])
+	if tex != null:
+		_bg_menu.texture = tex
+
+
+func _load_first_existing_texture(paths: Array[String]) -> Texture2D:
+	for p in paths:
+		var path := str(p)
+		if path.is_empty():
+			continue
+		if not ResourceLoader.exists(path):
+			continue
+		var tex := load(path)
+		if tex is Texture2D:
+			return tex
+	return null
 
 
 func _exit_tree() -> void:

@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dq78xekl3wfsl" path="res://assets/sprites/narrator_1.png" id="9_narr1"]
 [ext_resource type="Texture2D" uid="uid://eo4tq1uvmy58" path="res://assets/sprites/narrator_2.png" id="10_narr2"]
 [ext_resource type="Texture2D" uid="uid://clkmasvensg6f" path="res://assets/sprites/narrator_3.png" id="11_narr3"]
+[ext_resource type="Texture2D" uid="uid://cjegr4uf668on" path="res://assets/sprites/bg_city2.png" id="12_city"]
+[ext_resource type="Texture2D" uid="uid://dgjtuvbo5v2sb" path="res://assets/sprites/cloud_pink_1.png" id="13_cloud1"]
+[ext_resource type="Texture2D" uid="uid://ccbo75bidlxwh" path="res://assets/sprites/cloud_violet_1.png" id="14_cloud2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
 texture = ExtResource("3_btn")
@@ -60,8 +63,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_level")
+city_stages = Array[Texture2D]([ExtResource("8_night"), ExtResource("8_night"), ExtResource("12_city"), ExtResource("12_city")])
 
 [node name="BgCity" type="TextureRect" parent="." unique_id=710876343]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,6 +75,260 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_night")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BgCityNext" type="TextureRect" parent="." unique_id=991382112]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IntroClouds" type="Control" parent="." unique_id=385193387]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CloudLeft" type="TextureRect" parent="IntroClouds" unique_id=1863553600]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.18
+anchor_right = 0.74
+anchor_bottom = 0.74
+offset_left = -120.0
+offset_top = -120.0
+offset_bottom = 120.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudRight" type="TextureRect" parent="IntroClouds" unique_id=569812775]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.76
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudTopLeft" type="TextureRect" parent="IntroClouds" unique_id=337820511]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.02
+anchor_right = 0.52
+anchor_bottom = 0.34
+offset_left = -140.0
+offset_top = -80.0
+offset_bottom = 80.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudTopRight" type="TextureRect" parent="IntroClouds" unique_id=598088556]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.46
+anchor_top = 0.04
+anchor_right = 1.0
+anchor_bottom = 0.32
+offset_top = -80.0
+offset_right = 140.0
+offset_bottom = 80.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudBottomLeft" type="TextureRect" parent="IntroClouds" unique_id=472956774]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.58
+anchor_right = 0.56
+anchor_bottom = 0.94
+offset_left = -170.0
+offset_top = -110.0
+offset_bottom = 140.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudBottomRight" type="TextureRect" parent="IntroClouds" unique_id=197800352]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.42
+anchor_top = 0.62
+anchor_right = 1.0
+anchor_bottom = 0.96
+offset_top = -110.0
+offset_right = 170.0
+offset_bottom = 130.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudFog1" type="TextureRect" parent="IntroClouds" unique_id=1611669755]
+modulate = Color(1, 1, 1, 0.55)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudFog2" type="TextureRect" parent="IntroClouds" unique_id=60140639]
+modulate = Color(1, 1, 1, 0.38)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05, 1.05)
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudMidLeft" type="TextureRect" parent="IntroClouds" unique_id=1543436740]
+modulate = Color(1, 1, 1, 0.82)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.28
+anchor_right = 0.64
+anchor_bottom = 0.68
+offset_left = -220.0
+offset_top = -120.0
+offset_bottom = 140.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudMidRight" type="TextureRect" parent="IntroClouds" unique_id=2071049610]
+modulate = Color(1, 1, 1, 0.78)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.36
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.7
+offset_top = -120.0
+offset_right = 220.0
+offset_bottom = 140.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudEdgeLeft" type="TextureRect" parent="IntroClouds" unique_id=2090655834]
+modulate = Color(1, 1, 1, 0.72)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.04
+anchor_right = 0.44
+anchor_bottom = 0.96
+offset_left = -320.0
+offset_top = -220.0
+offset_bottom = 240.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudEdgeRight" type="TextureRect" parent="IntroClouds" unique_id=1269702696]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56
+anchor_top = 0.02
+anchor_right = 1.0
+anchor_bottom = 0.98
+offset_top = -220.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudSmall1" type="TextureRect" parent="IntroClouds" unique_id=982648404]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.12
+anchor_right = 0.36
+anchor_bottom = 0.32
+offset_left = -80.0
+offset_top = -60.0
+offset_bottom = 60.0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+texture = ExtResource("13_cloud1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudSmall2" type="TextureRect" parent="IntroClouds" unique_id=1707590098]
+modulate = Color(1, 1, 1, 0.88)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.64
+anchor_top = 0.14
+anchor_right = 1.0
+anchor_bottom = 0.34
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.72, 0.72)
+mouse_filter = 2
+texture = ExtResource("14_cloud2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="UiRoot" type="MarginContainer" parent="." unique_id=387739418]
 layout_mode = 1
@@ -221,6 +480,12 @@ theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 36
 autowrap_mode = 2
 
+[node name="ResultSpacer" type="Control" parent="UiRoot/MainColumn" unique_id=211776848]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
 [node name="ChoicesCol" type="VBoxContainer" parent="UiRoot/MainColumn" unique_id=426986639]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -314,3 +579,47 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 34
 text = "Нажмите для продолжения"
 horizontal_alignment = 1
+
+[node name="ResultStatusLabel" type="Label" parent="." unique_id=126582464]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 188.0
+offset_right = 360.0
+offset_bottom = 268.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.06, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 52
+text = "Уровень пройден!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnNextLevelBottom" type="Button" parent="." unique_id=758876184]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(420, 130)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -180.0
+offset_right = 250.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.04, 0.18, 0.52, 1)
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
+text = "Далее"
